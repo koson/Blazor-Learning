@@ -16,7 +16,7 @@
 <body>
     <div class="main">
         <form name="form">
-            <input class="textview" name="textview"  @bind="@inputValue" style="text-align:right;">
+            <input class="textview" name="textview" @bind="@inputValue" style="text-align:right;">
             <table>
                 <tr>
                     <td><input class="button" type="button" value="7" @onclick="@(e => AddString("7"))"></td>
@@ -42,8 +42,8 @@
                 <tr>
                     <td><input class="button" type="button" value="0" @onclick="@(e => AddString("0"))"></td>
                     <td><input class="button" type="button" value="." @onclick="@(e => AddString("."))"></td>
-                    <td><input class="button" type="button" value="EXp"></td>
-                    <td><input class="button" type="button" value="Ans"></td>
+                    <td><input class="button" type="button" value="EXP"></td>
+                    <td><input class="button" type="button" value="ANS"></td>
                     <td><input class="button" type="button" value="="></td>
                 </tr>
             </table>
@@ -51,37 +51,60 @@
     </div>
 </body>
 
-
+@* 
 <h2>@buttonName</h2>
-<h2>@operatorName</h2>
+<h2>@operatorName</h2> *@
 
 
 
 @* https://github.com/Lupusa87/LupusaBlazorDemos/blob/master/BlazorCalculatorComponent/CompBlazorCalculator.razor.cs *@
 
 @code {
-    private string? buttonName;
-    private string? operatorName;
+    @* private string? buttonName; *@
+    @* private string? operatorName; *@
     private string? inputValue = "0";
     bool ResetState = true;
+    int dot = 0;
     // private void buttonClicked() => buttonName = $"1";
     private void AddString(string s)
     {
         if (ResetState == true)
         {
-            inputValue = s;
-            ResetState = false;
+            if (s != "0")
+            {
+                inputValue = s;
+                if (s == "." && dot == 0)
+                {
+                    inputValue = "0.";
+                    dot++;
+                }
+                ResetState = false;
+            }
         }
         else
         {
-            inputValue += s;
+            if (s == ".")
+            {
+                if (dot == 0)
+                {
+                    inputValue += s;
+                    dot++;
+                }
+            }
+            else
+                inputValue += s;
         }
     }
-    private void Cmd_Add_Operator(string s) => inputValue += s;
+    private void Cmd_Add_Operator(string s)
+    { 
+        dot = 0;
+        inputValue += s;
+    }
     private void Cmd_Operation(string s) { }
     private void buttonClear_Click()
     {
         inputValue = "0";
+        dot = 0;
         ResetState = true;
     }
 }
