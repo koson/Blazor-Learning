@@ -1,0 +1,58 @@
+﻿@page "/calculator"
+<PageTitle>Calculator</PageTitle>
+
+@* https://stackoverflow.com/questions/70094020/blazor-click-calculator *@
+
+<h1> Calculator </h1>
+
+
+<style>
+*{
+margin:0px;
+padding: 0px;
+}
+
+
+</style>
+<body>
+    <div class="main">
+        <form name="form">
+            <input class="textview" name="textview">
+            <table>
+               <tr>
+                   <td><input class="button" type="button" value="C"></td>
+                   <td><input class="button" type="button" value="<"></td>
+                   <td><input class="button" type="button" value="/"></td>
+                   <td><input class="button" type="button" value="x"></td>
+               </tr>
+                <tr>
+                    <td><input class="button" type="button" value="7"></td>
+                    <td><input class="button" type="button" value="8"></td>
+                    <td><input class="button" type="button" value="9"></td>
+                    <td><input class="button" type="button" value="-"></td>
+                </tr>
+                <tr>
+                    <td><input class="button" type="button" value="4"></td>
+                    <td><input class="button" type="button" value="5"></td>
+                    <td><input class="button" type="button" value="6"></td>
+                    <td><input class="button" type="button" value="+"></td>
+                </tr>
+                <tr>
+                    <td><input class="button" type="button" value="1" @onclick="buttonClicked">1</td>
+                    <td><input class="button" type="button" value="2"></td>
+                    <td><input class="button" type="button" value="3"></td>
+                    <td><input class="button" type="button" value="="></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+<h2>@buttonName</h2>
+
+@code {
+    private string? buttonName;
+
+    private void buttonClicked() => buttonName = $"1";
+
+}
